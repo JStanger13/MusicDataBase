@@ -9,7 +9,7 @@
 import UIKit
 
 class ReleasesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    var releaseList = [ReleaseResults]()
+    var releaseList = [Releases]()
     let imageCache = NSCache<NSString, UIImage>()
     var currentArtist: ArtistResults?
     @IBOutlet weak var tableView: UITableView!
@@ -24,8 +24,8 @@ class ReleasesViewController: UIViewController, UITableViewDataSource, UITableVi
     }
    
     func performAction() {
-        url = URL(string: "https://api.discogs.com/database/\(currentArtist!.id!)/releases")
-        //url = URL(string: "https://api.discogs.com/database/search?q=Nirvana&type=release&token=AXZYPRfjIYVkEiErSyebiLrREQwtLfKbAkfEpOiS")
+        url = URL(string: "http://api.discogs.com/artists/\(currentArtist!.id!)/releases?token=AXZYPRfjIYVkEiErSyebiLrREQwtLfKbAkfEpOiS")
+
         print(url!)
         
         downloadJson()
@@ -42,8 +42,14 @@ class ReleasesViewController: UIViewController, UITableViewDataSource, UITableVi
             print("downloaded")
             do{
                 let decoder = JSONDecoder()
-                let downloadedReleases = try decoder.decode(Release_Base.self, from: data)
-                self.releaseList = downloadedReleases.results!
+                let downloadedReleases = try decoder.decode(Json4Swift_Base.self, from: data)
+                if downloadedReleases.releases != nil{
+                    print("not nil")
+                self.releaseList = downloadedReleases.releases!
+
+                }else{
+                    print("Shit's nil!!!!")
+                }
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
@@ -67,10 +73,9 @@ class ReleasesViewController: UIViewController, UITableViewDataSource, UITableVi
         
         let currentRelease = releaseList[indexPath.row]
         cell.releaseTitleLabel.text = currentRelease.title
-        //cell.releaseArtistNameLabel.text = currentRelease.
-        cell.releaseYearLabel.text = currentRelease.year
+        cell.releaseArtistNameLabel.text = currentRelease.artist
+        cell.releaseYearLabel.text = String(currentRelease.year!)
         //cell.releaseLabel.text = currentRelease.label[]
-        cell.releaseCover.image = nil
        
         let urlString = currentRelease.thumb! as! NSString
         
