@@ -1,37 +1,31 @@
 //
-//  ViewController.swift
+//  ReleasesViewController.swift
 //  MusicDataBase
 //
-//  Created by Justin Stanger on 8/3/18.
+//  Created by Justin Stanger on 8/4/18.
 //  Copyright © 2018 Justin Stanger. All rights reserved.
 //
 
 import UIKit
-import RealmSwift
-class SearchViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate {
-    var artistList = [Results]()
-    final var url: URL?
-    let token = "AXZYPRfjIYVkEiErSyebiLrREQwtLfKbAkfEpOiS"
-    var artist:String?
+
+class ReleasesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    var releaseList = [ReleaseResults]()
     let imageCache = NSCache<NSString, UIImage>()
-    @IBOutlet weak var textField: UITextField!
+    var currentArtist: ArtistResults?
     @IBOutlet weak var tableView: UITableView!
+    final var url: URL?
+
+    @IBOutlet weak var artistNameLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.textField.delegate = self
-        
+        artistNameLabel.text = currentArtist?.title
+        performAction()
     }
    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        
-        textField.resignFirstResponder()  //if desired
-        performAction()
-        return true
-    }
-    
     func performAction() {
-        url = URL(string: "https://api.discogs.com/database/search?q=\(self.textField.text!)&type=artist&token=\(self.token)")
+        url = URL(string: "https://api.discogs.com/database/\(currentArtist!.id!)/releases")
+        //url = URL(string: "https://api.discogs.com/database/search?q=Nirvana&type=release&token=AXZYPRfjIYVkEiErSyebiLrREQwtLfKbAkfEpOiS")
         print(url!)
         
         downloadJson()
@@ -48,8 +42,8 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
             print("downloaded")
             do{
                 let decoder = JSONDecoder()
-                let downloadedArtists = try decoder.decode(Json4Swift_Base.self, from: data)
-                self.artistList = downloadedArtists.results!
+                let downloadedReleases = try decoder.decode(Release_Base.self, from: data)
+                self.releaseList = downloadedReleases.results!
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
@@ -60,27 +54,28 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
             }
             }.resume()
         self.tableView.reloadData()
-        
     }
     
     
-   
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return artistList.count
+       return self.releaseList.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ArtistCell", for: indexPath) as!
-        ArtistCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ReleasesCell", for: indexPath) as!
+        ReleasesCell
         
-        let currentArtist = artistList[indexPath.row]
-        
-        cell.nameLabel.text = currentArtist.title
-        cell.artistImage.image = nil
-        let urlString = currentArtist.thumb! as! NSString
+        let currentRelease = releaseList[indexPath.row]
+        cell.releaseTitleLabel.text = currentRelease.title
+        //cell.releaseArtistNameLabel.text = currentRelease.
+        cell.releaseYearLabel.text = currentRelease.year
+        //cell.releaseLabel.text = currentRelease.label[]
+        cell.releaseCover.image = nil
+       
+        let urlString = currentRelease.thumb! as! NSString
         
         if let imageFromCache = imageCache.object(forKey: urlString){
-            cell.artistImage.image = imageFromCache
+            cell.releaseCover.image = imageFromCache
         } else if let imageURL =  URL(string: (urlString as String)){
             
             DispatchQueue.global().async {
@@ -90,15 +85,13 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
                     DispatchQueue.main.async {
                         let  imageToCache = image
                         self.imageCache.setObject(image!, forKey: urlString)
-                        cell.artistImage.image = imageToCache
+                        cell.releaseCover.image = imageToCache
                     }
                 }else{}
-            //do nothing
+                //do nothing
             }
         }
         return cell
     }
 }
-
-
 
