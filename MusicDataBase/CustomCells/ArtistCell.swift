@@ -10,6 +10,13 @@ import UIKit
 
 class ArtistCell: UITableViewCell {
 
+    @IBOutlet weak var outsideView: UIView!
+    
     @IBOutlet weak var artistImage: UIImageView!
     @IBOutlet weak var nameLabel: UILabel!
+   
+    @IBOutlet weak var stringView: UIView!
+    
 }
+
+

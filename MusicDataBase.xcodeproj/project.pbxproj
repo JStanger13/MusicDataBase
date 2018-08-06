@@ -45,7 +45,9 @@
 		666A3E7D2117BB2700B560A2 /* Rating.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666A3E702117BB2700B560A2 /* Rating.swift */; };
 		666A3E7E2117BB2700B560A2 /* Submitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666A3E712117BB2700B560A2 /* Submitter.swift */; };
 		666A3E7F2117BB2700B560A2 /* Formats.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666A3E722117BB2700B560A2 /* Formats.swift */; };
-		666A3E812117C85000B560A2 /* AlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666A3E802117C85000B560A2 /* AlbumCell.swift */; };
+		666A3E842118B25700B560A2 /* AlbumObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666A3E832118B25700B560A2 /* AlbumObject.swift */; };
+		666A3E872118B3FA00B560A2 /* WantListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666A3E862118B3FA00B560A2 /* WantListViewController.swift */; };
+		666A3E8A2118BCC200B560A2 /* RealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 666A3E892118BCC200B560A2 /* RealmService.swift */; };
 		A0BBBB2640CDA7C438E31D23 /* Pods_MusicDataBaseTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4A6DA0A3950B4E2EE840FC31 /* Pods_MusicDataBaseTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -115,7 +117,9 @@
 		666A3E702117BB2700B560A2 /* Rating.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Rating.swift; path = ../../../../../Downloads/codegen_5b6781b0895f1/Rating.swift; sourceTree = "<group>"; };
 		666A3E712117BB2700B560A2 /* Submitter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Submitter.swift; path = ../../../../../Downloads/codegen_5b6781b0895f1/Submitter.swift; sourceTree = "<group>"; };
 		666A3E722117BB2700B560A2 /* Formats.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Formats.swift; path = ../../../../../Downloads/codegen_5b6781b0895f1/Formats.swift; sourceTree = "<group>"; };
-		666A3E802117C85000B560A2 /* AlbumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumCell.swift; sourceTree = "<group>"; };
+		666A3E832118B25700B560A2 /* AlbumObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumObject.swift; sourceTree = "<group>"; };
+		666A3E862118B3FA00B560A2 /* WantListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WantListViewController.swift; sourceTree = "<group>"; };
+		666A3E892118BCC200B560A2 /* RealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmService.swift; sourceTree = "<group>"; };
 		B20CEE09CF7FEFF5EFBFA351 /* Pods-MusicDataBase.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MusicDataBase.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MusicDataBase/Pods-MusicDataBase.debug.xcconfig"; sourceTree = "<group>"; };
 		E9540AFC4BCEE5B76B4A6CE2 /* Pods-MusicDataBaseUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MusicDataBaseUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-MusicDataBaseUITests/Pods-MusicDataBaseUITests.release.xcconfig"; sourceTree = "<group>"; };
 		F997230A12CE107D67F57F9D /* Pods-MusicDataBaseTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MusicDataBaseTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MusicDataBaseTests/Pods-MusicDataBaseTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -175,6 +179,8 @@
 		665E11922115380E007A025E /* MusicDataBase */ = {
 			isa = PBXGroup;
 			children = (
+				666A3E882118BCB300B560A2 /* Services */,
+				666A3E822118B24400B560A2 /* Models */,
 				666A3E122116653B00B560A2 /* ViewControllers */,
 				666A3E0F211658E900B560A2 /* APIModels */,
 				666A3E0421164AE300B560A2 /* CustomCells */,
@@ -221,7 +227,6 @@
 			children = (
 				666A3E0221164ADD00B560A2 /* ArtistCell.swift */,
 				666A3E1621166A8A00B560A2 /* ReleasesCell.swift */,
-				666A3E802117C85000B560A2 /* AlbumCell.swift */,
 			);
 			path = CustomCells;
 			sourceTree = "<group>";
@@ -239,6 +244,7 @@
 		666A3E122116653B00B560A2 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				666A3E852118B3B700B560A2 /* UserList */,
 				666A3E13211665E600B560A2 /* SearchTab */,
 			);
 			path = ViewControllers;
@@ -286,6 +292,30 @@
 				666A3E692117BB2700B560A2 /* Tracklist.swift */,
 			);
 			path = AlbumAPI;
+			sourceTree = "<group>";
+		};
+		666A3E822118B24400B560A2 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				666A3E832118B25700B560A2 /* AlbumObject.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		666A3E852118B3B700B560A2 /* UserList */ = {
+			isa = PBXGroup;
+			children = (
+				666A3E862118B3FA00B560A2 /* WantListViewController.swift */,
+			);
+			path = UserList;
+			sourceTree = "<group>";
+		};
+		666A3E882118BCB300B560A2 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				666A3E892118BCC200B560A2 /* RealmService.swift */,
+			);
+			path = Services;
 			sourceTree = "<group>";
 		};
 		A33B78088D157960AB15A1B0 /* Frameworks */ = {
@@ -451,11 +481,13 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-MusicDataBase/Pods-MusicDataBase-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
 				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/Toast-Swift/Toast_Swift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Toast_Swift.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -524,6 +556,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				665E11962115380E007A025E /* SearchViewController.swift in Sources */,
+				666A3E8A2118BCC200B560A2 /* RealmService.swift in Sources */,
 				666A3E6021174CCF00B560A2 /* Stats.swift in Sources */,
 				666A3E782117BB2700B560A2 /* Artists.swift in Sources */,
 				666A3E152116664A00B560A2 /* ReleasesViewController.swift in Sources */,
@@ -531,6 +564,7 @@
 				666A3E2021166D2900B560A2 /* ArtistResults.swift in Sources */,
 				666A3E752117BB2700B560A2 /* Identifiers.swift in Sources */,
 				666A3E1F21166D2900B560A2 /* ArtistUser_data.swift in Sources */,
+				666A3E872118B3FA00B560A2 /* WantListViewController.swift in Sources */,
 				666A3E5A21174CCF00B560A2 /* Releases.swift in Sources */,
 				666A3E762117BB2700B560A2 /* Tracklist.swift in Sources */,
 				666A3E5F21174CCF00B560A2 /* Pagination.swift in Sources */,
@@ -543,6 +577,7 @@
 				666A3E732117BB2700B560A2 /* Images.swift in Sources */,
 				666A3E5E21174CCF00B560A2 /* Urls.swift in Sources */,
 				666A3E742117BB2700B560A2 /* Album_Base.swift in Sources */,
+				666A3E842118B25700B560A2 /* AlbumObject.swift in Sources */,
 				666A3E7C2117BB2700B560A2 /* AlbumCommunity.swift in Sources */,
 				666A3E7D2117BB2700B560A2 /* Rating.swift in Sources */,
 				666A3E7E2117BB2700B560A2 /* Submitter.swift in Sources */,
@@ -550,7 +585,6 @@
 				666A3E7A2117BB2700B560A2 /* Contributors.swift in Sources */,
 				666A3E5B21174CCF00B560A2 /* User.swift in Sources */,
 				666A3E2121166D2900B560A2 /* Artist_Base.swift in Sources */,
-				666A3E812117C85000B560A2 /* AlbumCell.swift in Sources */,
 				666A3E792117BB2700B560A2 /* Labels.swift in Sources */,
 				665E11942115380E007A025E /* AppDelegate.swift in Sources */,
 				666A3E5C21174CCF00B560A2 /* Community.swift in Sources */,
@@ -731,10 +765,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SVHZ5AR89V;
 				INFOPLIST_FILE = MusicDataBase/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.JustinStanger.MusicDataBase;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -750,10 +781,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SVHZ5AR89V;
 				INFOPLIST_FILE = MusicDataBase/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.JustinStanger.MusicDataBase;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -770,11 +798,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SVHZ5AR89V;
 				INFOPLIST_FILE = MusicDataBaseTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.JustinStanger.MusicDataBaseTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -792,11 +816,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SVHZ5AR89V;
 				INFOPLIST_FILE = MusicDataBaseTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.JustinStanger.MusicDataBaseTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -813,11 +833,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SVHZ5AR89V;
 				INFOPLIST_FILE = MusicDataBaseUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.JustinStanger.MusicDataBaseUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -834,11 +850,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SVHZ5AR89V;
 				INFOPLIST_FILE = MusicDataBaseUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@loader_path/Frameworks",
-				);
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.JustinStanger.MusicDataBaseUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;

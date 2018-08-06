@@ -7,43 +7,66 @@
 //
 
 import UIKit
+import Toast_Swift
 
-class AlbumViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class AlbumViewController: UIViewController{
     
-    @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var outsideAlbumView: UIView!
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 4
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "AlbumCell", for: indexPath) as!
-        AlbumCell
-        
-        
-        return cell
-    }
-    
-    final var url: URL?
-    var currentAlbum: Releases?
-    var albumImage: [Images]?
+    @IBOutlet weak var insideView: UIView!
     
     @IBOutlet weak var saveSwitch: UISwitch!
+    final var url: URL?
+    final var year: Int?
+    final var yearString: String?
+
+    
+    var currentAlbum: Releases?
+    var albumImage: [Images]?
+    var albumInfoList:[String]?
+    
+    
+    @IBOutlet weak var albumInfoView: UIView!
     @IBOutlet weak var albumCover: UIImageView!
+    
+    
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var artistLabel: UILabel!
+    @IBOutlet weak var yearLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        saveSwitch.isOn = false
+        //saveSwitch.isOn = false
+        albumInfoView.layer.cornerRadius = 10
+        albumInfoView.layer.masksToBounds = true
+        insideView.layer.cornerRadius = 5
+        
+        outsideAlbumView.layer.cornerRadius = 10
+        outsideAlbumView.layer.masksToBounds = true
+        albumCover.layer.cornerRadius = 5
+        
         if(currentAlbum?.main_release != nil){
             performAction()
-            tableView.bounces = false
+            
+            titleLabel.text = "Title: \(currentAlbum!.title!)"
+            artistLabel.text = "Artist: \(currentAlbum!.artist!)"
+            self.year = currentAlbum?.year
+            self.yearString = String(year!)
+            
+            yearLabel.text = "Year: \(String(describing: yearString!))"
         }
     }
     
     func performAction() {
         url = URL(string: "https://api.discogs.com/releases/\(currentAlbum!.main_release!)?token=AXZYPRfjIYVkEiErSyebiLrREQwtLfKbAkfEpOiS")
-       print(currentAlbum!.id!)
+        print(currentAlbum!.id!)
         print(url!)
+        albumInfoList?.append((currentAlbum?.title)!)
+        albumInfoList?.append((currentAlbum?.artist)!)
+        let year = currentAlbum!.year!
+        let yearString = String(year)
+        albumInfoList?.append(yearString)
+
         
         downloadJson()
     }
@@ -77,12 +100,21 @@ class AlbumViewController: UIViewController, UITableViewDataSource, UITableViewD
             }.resume()
     }
     
-    
     func getAlbumArt(){
         let url = URL(string: (albumImage?[0].uri)!)
         let data = try? Data(contentsOf: url!) //make sure your image in this url does exist, otherwise unwrap in a if let check / try-catch
         self.albumCover.image = UIImage(data: data!)
     }
+    //RealmService.shared.saveObjects(obj: [currentAlbum])
 
    
+    @IBAction func saveSwitchAction(_ sender: Any) {
+        if saveSwitch.isOn{
+            self.view.makeToast("This Album Has Been Saved")
+        }else{
+            self.view.makeToast("This Album Has Been Removed")
+        }
+    }
+    
+    
 }

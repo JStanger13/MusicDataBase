@@ -30,7 +30,6 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     
     @IBAction func segmentedControllerChange(_ sender: Any) {
         print(self.segmentedController.selectedSegmentIndex)
-        
     }
     
     
@@ -108,7 +107,12 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         ArtistCell
         
         let currentArtist = artistList[indexPath.row]
+        cell.outsideView.layer.cornerRadius = 10
+        cell.outsideView.layer.masksToBounds = true
+        cell.artistImage.layer.cornerRadius = 5
+        cell.stringView.layer.cornerRadius = 10
         
+
         cell.nameLabel.text = currentArtist.title
         //cell.artistImage.image = nil
         let urlString = currentArtist.thumb! as! NSString
@@ -132,6 +136,7 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         }
         return cell
     }
+    
 }
 
 
