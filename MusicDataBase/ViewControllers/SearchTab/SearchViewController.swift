@@ -14,14 +14,25 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     let token = "AXZYPRfjIYVkEiErSyebiLrREQwtLfKbAkfEpOiS"
     var artist:String?
     let imageCache = NSCache<NSString, UIImage>()
+    var type: String?
+    
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var tableView: UITableView!
+    
+    @IBOutlet weak var segmentedController: UISegmentedControl!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.textField.delegate = self
+        selectSearchMethod()
+        print(segmentedController.selectedSegmentIndex)
+    }
+    
+    @IBAction func segmentedControllerChange(_ sender: Any) {
+        print(self.segmentedController.selectedSegmentIndex)
         
     }
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "SearchSegue" {
@@ -39,6 +50,14 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
             }
         }
     }
+    
+    func selectSearchMethod() {
+        if segmentedController.selectedSegmentIndex == 0 {
+            type = "artist"
+        }else{
+            type = "release"
+        }
+    }
    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
@@ -48,9 +67,8 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func performAction() {
-        url = URL(string: "https://api.discogs.com/database/search?q=\(self.textField.text!)&type=artist&token=\(self.token)")
+        url = URL(string: "https://api.discogs.com/database/search?q=\(self.textField.text!)&type=\(type!)&token=\(self.token)")
         print(url!)
-        
         downloadJson()
     }
     

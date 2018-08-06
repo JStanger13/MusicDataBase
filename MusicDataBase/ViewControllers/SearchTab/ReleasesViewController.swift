@@ -17,12 +17,32 @@ class ReleasesViewController: UIViewController, UITableViewDataSource, UITableVi
 
     @IBOutlet weak var artistNameLabel: UILabel!
     
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         artistNameLabel.text = currentArtist?.title
         performAction()
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "AlbumSegue" {
+            if segue.destination is AlbumViewController {
+                let backItem = UIBarButtonItem()
+                backItem.title = ""
+                navigationItem.backBarButtonItem = backItem
+                
+                let indexPath = self.tableView.indexPathForSelectedRow
+                
+                let currentAlbum = self.releaseList[(indexPath?.row)!]
+                
+                let destinationVC = segue.destination as! AlbumViewController
+                destinationVC.currentAlbum = currentAlbum
+            }
+        }
+    }
    
+  
     func performAction() {
         url = URL(string: "http://api.discogs.com/artists/\(currentArtist!.id!)/releases?token=AXZYPRfjIYVkEiErSyebiLrREQwtLfKbAkfEpOiS")
 
@@ -74,7 +94,9 @@ class ReleasesViewController: UIViewController, UITableViewDataSource, UITableVi
         let currentRelease = releaseList[indexPath.row]
         cell.releaseTitleLabel.text = currentRelease.title
         cell.releaseArtistNameLabel.text = currentRelease.artist
-        cell.releaseYearLabel.text = String(currentRelease.year!)
+        if (currentRelease.year != nil) {
+            cell.releaseYearLabel.text = String(currentRelease.year!)
+        }
         //cell.releaseLabel.text = currentRelease.label[]
        
         let urlString = currentRelease.thumb! as! NSString
