@@ -10,6 +10,8 @@ import UIKit
 
 class SavedAlbumCell: UITableViewCell {
 
+    @IBOutlet weak var clearView: UIView!
+    @IBOutlet weak var albumCoverOutsideView: UIView!
     @IBOutlet weak var albumTitle: UILabel!
     @IBOutlet weak var albumArtist: UILabel!
     @IBOutlet weak var albumYear: UILabel!

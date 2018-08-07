@@ -12,6 +12,8 @@ import RealmSwift
 class WantListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
   
     var albumList : Results<AlbumObject>!
+    let imageCache = NSCache<NSString, UIImage>()
+
     
     @IBOutlet weak var tableView: UITableView!
     
@@ -46,7 +48,32 @@ class WantListViewController: UIViewController, UITableViewDataSource, UITableVi
         let currentAlbum = albumList[indexPath.row]
         cell.albumArtist.text = currentAlbum.artistTitle
         cell.albumTitle.text = currentAlbum.albumTitle
+        cell.clearView.layer.cornerRadius = 10
+        cell.clearView.layer.masksToBounds = true
         cell.albumCover.layer.cornerRadius = 10
+        cell.albumCoverOutsideView.layer.cornerRadius = 10
+        cell.albumCoverOutsideView.layer.masksToBounds = true
+        
+        
+        let urlString = currentAlbum.albumCover as! NSString
+
+        if let imageFromCache = imageCache.object(forKey: urlString){
+            cell.albumCover.image = imageFromCache
+        } else if let imageURL =  URL(string: (urlString as String)){
+            
+            DispatchQueue.global().async {
+                let data = try? Data(contentsOf: imageURL)
+                if let data = data {
+                    let image = UIImage(data: data)
+                    DispatchQueue.main.async {
+                        let  imageToCache = image
+                        self.imageCache.setObject(image!, forKey: urlString)
+                        cell.albumCover.image = imageToCache
+                    }
+                }else{}
+                //do nothing
+            }
+        }
         
         return cell
 

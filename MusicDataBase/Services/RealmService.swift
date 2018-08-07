@@ -24,6 +24,10 @@ class RealmService{
         return realm.objects(type)
     }
     //mainQuestID
+    func getFilteredObjetcs(type: Object.Type, key: String) -> Results<Object>? {
+                return realm.objects(type).filter("albumID == %@", key)
+    }
+
    
 //    func getFilteredObjetcs(type: Object.Type, key: String) -> Results<Object>? {
 //        //let predicate = NSPredicate(format: "mainKey == %@", key)

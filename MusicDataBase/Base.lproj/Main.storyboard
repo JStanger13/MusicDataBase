@@ -106,8 +106,10 @@
                                         <connections>
                                             <outlet property="albumArtist" destination="R6x-77-yom" id="K0W-Kj-jiC"/>
                                             <outlet property="albumCover" destination="qzR-5p-k25" id="NvF-V8-8kO"/>
+                                            <outlet property="albumCoverOutsideView" destination="Nca-fF-hkZ" id="qjo-jH-3Dv"/>
                                             <outlet property="albumTitle" destination="irM-3S-Wcm" id="ejS-Bq-cea"/>
                                             <outlet property="albumYear" destination="Hsg-xU-f5S" id="qtk-au-Xr5"/>
+                                            <outlet property="clearView" destination="jnP-PA-FsM" id="nRu-O9-j9e"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

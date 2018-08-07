@@ -25,7 +25,6 @@ class AlbumViewController: UIViewController{
     var albumImage: [Images]?
     var albumInfoList:[String]?
     
-    
     @IBOutlet weak var albumInfoView: UIView!
     @IBOutlet weak var albumCover: UIImageView!
     
@@ -114,10 +113,12 @@ class AlbumViewController: UIViewController{
     //RealmService.shared.saveObjects(obj: [currentAlbum])
 
     func saveAlbum(){
-        let savedAlbum = AlbumObject(albumTitle: currentAlbum!.title!, artistTitle: currentAlbum!.artist!, albumYear: String(currentAlbum!.year!))
+        let savedAlbum = AlbumObject(albumTitle: currentAlbum!.title!, artistTitle: currentAlbum!.artist!, albumYear: String(currentAlbum!.year!), albumCover: currentAlbum!.thumb!)
+        print(currentAlbum!.thumb!)
         print(savedAlbum.albumTitle)
         print(savedAlbum.artistTitle)
         print(savedAlbum.albumYear)
+        
         if saveSwitch.isOn{
             self.view.makeToast("This Album Has Been Saved")
             RealmService.shared.saveObjects(obj: [savedAlbum])

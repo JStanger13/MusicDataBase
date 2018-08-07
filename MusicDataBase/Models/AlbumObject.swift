@@ -23,11 +23,11 @@ class AlbumObject: Object {
         return "objectID"
     }
 
-    convenience init(albumTitle: String, artistTitle: String, albumYear: String) {
+    convenience init(albumTitle: String, artistTitle: String, albumYear: String, albumCover: String) {
         self.init()
         self.albumTitle = albumTitle
         self.artistTitle = artistTitle
         self.albumYear = albumYear
-        //self.albumCover = albumCover
+        self.albumCover = albumCover
     }
 }
