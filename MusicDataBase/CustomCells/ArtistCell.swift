@@ -17,6 +17,7 @@ class ArtistCell: UITableViewCell {
    
     @IBOutlet weak var stringView: UIView!
     
+    @IBOutlet weak var cellBackView: UIView!
 }
 
 

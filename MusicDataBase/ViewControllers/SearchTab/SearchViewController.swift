@@ -20,12 +20,22 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     @IBOutlet weak var tableView: UITableView!
     
     @IBOutlet weak var segmentedController: UISegmentedControl!
-    
+    @IBOutlet weak var navItem: UIBarButtonItem!
+
     override func viewDidLoad() {
         super.viewDidLoad()
         self.textField.delegate = self
         selectSearchMethod()
         print(segmentedController.selectedSegmentIndex)
+
+        textField.clearButtonMode = .always
+        
+        self.textField.layer.cornerRadius = 15
+        self.textField.layer.masksToBounds = true
+        
+        //self.navigationController?.navigationItem.layer.cornerRadius = 50
+        //textField.clearButtonMode = .whileEditing
+
     }
     
     @IBAction func segmentedControllerChange(_ sender: Any) {
@@ -66,7 +76,11 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func performAction() {
-        url = URL(string: "https://api.discogs.com/database/search?q=\(self.textField.text!)&type=\(type!)&token=\(self.token)")
+        let str = self.textField.text!
+        let replaced = str.replacingOccurrences(of: " ", with: "%20")
+
+        url = URL(string: "https://api.discogs.com/database/search?q=\(replaced)&type=\(type!)&token=\(self.token)")
+        
         print(url!)
         downloadJson()
     }
@@ -112,9 +126,14 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         cell.artistImage.layer.cornerRadius = 5
         cell.stringView.layer.cornerRadius = 10
         
+        cell.cellBackView.layer.cornerRadius = 10
+        cell.cellBackView.layer.masksToBounds = true
+
+        
+        cell.selectionStyle = .none
 
         cell.nameLabel.text = currentArtist.title
-        //cell.artistImage.image = nil
+
         let urlString = currentArtist.thumb! as! NSString
         
         if let imageFromCache = imageCache.object(forKey: urlString){

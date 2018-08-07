@@ -9,15 +9,16 @@
 import UIKit
 import RealmSwift
 
-class WantListViewController: UIViewController {
-   
-    var albumList : Results<Object>!
-
-
+class WantListViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+  
+    var albumList : Results<AlbumObject>!
+    
+    @IBOutlet weak var tableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+        loadFromRealm()
     }
 
     override func didReceiveMemoryWarning() {
@@ -25,12 +26,32 @@ class WantListViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        tableView.reloadData()
+    }
+    
     
     func loadFromRealm(){
         let realm = RealmService.shared.realm
       
-        self.albumList = RealmService.shared.getObjetcs(type: AlbumObject.self)
+        self.albumList = realm.objects(AlbumObject.self)
     }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.albumList.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SavedAlbumCell", for: indexPath) as! SavedAlbumCell
+        let currentAlbum = albumList[indexPath.row]
+        cell.albumArtist.text = currentAlbum.artistTitle
+        cell.albumTitle.text = currentAlbum.albumTitle
+        cell.albumCover.layer.cornerRadius = 10
+        
+        return cell
+
+    }
+    
     
 
 }

@@ -15,5 +15,7 @@ class ReleasesCell: UITableViewCell {
     @IBOutlet weak var releaseArtistNameLabel: UILabel!
     @IBOutlet weak var releaseTitleLabel: UILabel!
     
-    @IBOutlet weak var releaseLabel: UILabel!
+    @IBOutlet weak var cellBackView: UIView!
+    @IBOutlet weak var outsideView: UIView!
+    
 }

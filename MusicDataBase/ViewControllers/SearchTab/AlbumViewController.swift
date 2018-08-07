@@ -37,9 +37,13 @@ class AlbumViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         //saveSwitch.isOn = false
+        
         albumInfoView.layer.cornerRadius = 10
         albumInfoView.layer.masksToBounds = true
         insideView.layer.cornerRadius = 5
+        insideView.layer.masksToBounds = true
+                
+
         
         outsideAlbumView.layer.cornerRadius = 10
         outsideAlbumView.layer.masksToBounds = true
@@ -48,15 +52,17 @@ class AlbumViewController: UIViewController{
         if(currentAlbum?.main_release != nil){
             performAction()
             
-            titleLabel.text = "Title: \(currentAlbum!.title!)"
-            artistLabel.text = "Artist: \(currentAlbum!.artist!)"
+            titleLabel.text = "\(currentAlbum!.title!)     "
+            artistLabel.text = "\(currentAlbum!.artist!)     "
             self.year = currentAlbum?.year
             self.yearString = String(year!)
             
-            yearLabel.text = "Year: \(String(describing: yearString!))"
+            yearLabel.text = "\(String(describing: yearString!))"
         }
     }
-    
+    func loadRealm(){
+        //RealmService.shared.getObjetcs(type: <#T##Object.Type#>)
+    }
     func performAction() {
         url = URL(string: "https://api.discogs.com/releases/\(currentAlbum!.main_release!)?token=AXZYPRfjIYVkEiErSyebiLrREQwtLfKbAkfEpOiS")
         print(currentAlbum!.id!)
@@ -107,14 +113,26 @@ class AlbumViewController: UIViewController{
     }
     //RealmService.shared.saveObjects(obj: [currentAlbum])
 
-   
-    @IBAction func saveSwitchAction(_ sender: Any) {
+    func saveAlbum(){
+        let savedAlbum = AlbumObject(albumTitle: currentAlbum!.title!, artistTitle: currentAlbum!.artist!, albumYear: String(currentAlbum!.year!))
+        print(savedAlbum.albumTitle)
+        print(savedAlbum.artistTitle)
+        print(savedAlbum.albumYear)
         if saveSwitch.isOn{
             self.view.makeToast("This Album Has Been Saved")
+            RealmService.shared.saveObjects(obj: [savedAlbum])
         }else{
             self.view.makeToast("This Album Has Been Removed")
+            RealmService.shared.deleteObjects(obj: [savedAlbum])
         }
-    }
     
+        
+        RealmService.shared.saveObjects(obj: [savedAlbum])
+
+    }
+   
+    @IBAction func saveSwitchAction(_ sender: Any) {
+        saveAlbum()
+    }
     
 }

@@ -13,6 +13,8 @@ class AlbumObject: Object {
     @objc dynamic var albumTitle = ""
     @objc dynamic var artistTitle = ""
     @objc dynamic var albumYear = ""
+    @objc dynamic var albumCover = ""
+
     @objc dynamic var albumID = ""
 
     @objc dynamic var objectID = UUID().uuidString
@@ -26,5 +28,6 @@ class AlbumObject: Object {
         self.albumTitle = albumTitle
         self.artistTitle = artistTitle
         self.albumYear = albumYear
+        //self.albumCover = albumCover
     }
 }

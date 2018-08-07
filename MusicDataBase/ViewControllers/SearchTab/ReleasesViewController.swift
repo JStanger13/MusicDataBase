@@ -23,6 +23,7 @@ class ReleasesViewController: UIViewController, UITableViewDataSource, UITableVi
         super.viewDidLoad()
         artistNameLabel.text = currentArtist?.title
         performAction()
+
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -92,13 +93,25 @@ class ReleasesViewController: UIViewController, UITableViewDataSource, UITableVi
         ReleasesCell
         
         let currentRelease = releaseList[indexPath.row]
-        cell.releaseTitleLabel.text = currentRelease.title
-        cell.releaseArtistNameLabel.text = currentRelease.artist
+        cell.releaseTitleLabel.text = "\(currentRelease.title!)     "
+        cell.releaseArtistNameLabel.text = "\(currentRelease.artist!)     "
+        
+       
+        cell.outsideView.layer.cornerRadius = 10
+        cell.outsideView.layer.masksToBounds = true
+        cell.releaseCover.layer.cornerRadius = 5
+
+        
+        cell.cellBackView.layer.cornerRadius = 10
+        cell.cellBackView.layer.masksToBounds = true
+        
+        cell.selectionStyle = .none
+
+        
         if (currentRelease.year != nil) {
             cell.releaseYearLabel.text = String(currentRelease.year!)
         }
-        //cell.releaseLabel.text = currentRelease.label[]
-       
+
         let urlString = currentRelease.thumb! as! NSString
         
         if let imageFromCache = imageCache.object(forKey: urlString){
