@@ -15,7 +15,8 @@ class AlbumObject: Object {
     @objc dynamic var albumYear = ""
     @objc dynamic var albumCover = ""
 
-    @objc dynamic var albumID = ""
+    var albumID = RealmOptional<Int>()
+
 
     @objc dynamic var objectID = UUID().uuidString
 
@@ -23,11 +24,12 @@ class AlbumObject: Object {
         return "objectID"
     }
 
-    convenience init(albumTitle: String, artistTitle: String, albumYear: String, albumCover: String) {
+    convenience init(albumTitle: String, artistTitle: String, albumYear: String, albumCover: String, albumID: Int) {
         self.init()
         self.albumTitle = albumTitle
         self.artistTitle = artistTitle
         self.albumYear = albumYear
         self.albumCover = albumCover
+        self.albumID.value = albumID
     }
 }

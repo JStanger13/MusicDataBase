@@ -24,7 +24,7 @@ class RealmService{
         return realm.objects(type)
     }
     //mainQuestID
-    func getFilteredObjetcs(type: Object.Type, key: String) -> Results<Object>? {
+    func getFilteredObjetcs(type: Object.Type, key: Int) -> Results<Object>? {
                 return realm.objects(type).filter("albumID == %@", key)
     }
 

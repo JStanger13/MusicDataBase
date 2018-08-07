@@ -12,13 +12,14 @@ import Toast_Swift
 class AlbumViewController: UIViewController{
     
     @IBOutlet weak var outsideAlbumView: UIView!
-    
     @IBOutlet weak var insideView: UIView!
-    
     @IBOutlet weak var saveSwitch: UISwitch!
+    
     final var url: URL?
     final var year: Int?
     final var yearString: String?
+    
+    final var albumIsSaved  = false
 
     
     var currentAlbum: Releases?
@@ -35,7 +36,7 @@ class AlbumViewController: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //saveSwitch.isOn = false
+        loadRealm()
         
         albumInfoView.layer.cornerRadius = 10
         albumInfoView.layer.masksToBounds = true
@@ -60,7 +61,14 @@ class AlbumViewController: UIViewController{
         }
     }
     func loadRealm(){
-        //RealmService.shared.getObjetcs(type: <#T##Object.Type#>)
+        if (RealmService.shared.getFilteredObjetcs(type: AlbumObject.self, key: currentAlbum!.id!) != nil){
+            
+            albumIsSaved = true
+            saveSwitch.isOn = true
+        }else{
+            albumIsSaved = false
+            saveSwitch.isOn = false
+        }
     }
     func performAction() {
         url = URL(string: "https://api.discogs.com/releases/\(currentAlbum!.main_release!)?token=AXZYPRfjIYVkEiErSyebiLrREQwtLfKbAkfEpOiS")
@@ -113,7 +121,7 @@ class AlbumViewController: UIViewController{
     //RealmService.shared.saveObjects(obj: [currentAlbum])
 
     func saveAlbum(){
-        let savedAlbum = AlbumObject(albumTitle: currentAlbum!.title!, artistTitle: currentAlbum!.artist!, albumYear: String(currentAlbum!.year!), albumCover: currentAlbum!.thumb!)
+        let savedAlbum = AlbumObject(albumTitle: currentAlbum!.title!, artistTitle: currentAlbum!.artist!, albumYear: String(currentAlbum!.year!), albumCover: currentAlbum!.thumb!, albumID: currentAlbum!.id!)
         print(currentAlbum!.thumb!)
         print(savedAlbum.albumTitle)
         print(savedAlbum.artistTitle)
