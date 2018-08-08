@@ -18,10 +18,10 @@ class AlbumObject: Object {
     var albumID = RealmOptional<Int>()
 
 
-    @objc dynamic var objectID = UUID().uuidString
+    //@objc dynamic var objectID = UUID().uuidString
 
     override static func primaryKey() -> String? {
-        return "objectID"
+        return "albumID"
     }
 
     convenience init(albumTitle: String, artistTitle: String, albumYear: String, albumCover: String, albumID: Int) {

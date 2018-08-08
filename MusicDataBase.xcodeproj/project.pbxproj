@@ -11,6 +11,7 @@
 		57786B2BF36F19BC06AABF1E /* Pods_MusicDataBase.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 120289D51F582FBB3C79356B /* Pods_MusicDataBase.framework */; };
 		661E4B4E211940810005CA0E /* SavedAlbumCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 661E4B4D211940810005CA0E /* SavedAlbumCell.swift */; };
 		661E4B50211A2D280005CA0E /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 661E4B4F211A2D280005CA0E /* LogInViewController.swift */; };
+		662BAFD4211B8A8200185562 /* HashTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 662BAFD3211B8A8200185562 /* HashTable.swift */; };
 		665E11942115380E007A025E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665E11932115380E007A025E /* AppDelegate.swift */; };
 		665E11962115380E007A025E /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 665E11952115380E007A025E /* SearchViewController.swift */; };
 		665E11992115380E007A025E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 665E11972115380E007A025E /* Main.storyboard */; };
@@ -79,6 +80,7 @@
 		4A6DA0A3950B4E2EE840FC31 /* Pods_MusicDataBaseTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MusicDataBaseTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		661E4B4D211940810005CA0E /* SavedAlbumCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedAlbumCell.swift; sourceTree = "<group>"; };
 		661E4B4F211A2D280005CA0E /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
+		662BAFD3211B8A8200185562 /* HashTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HashTable.swift; sourceTree = "<group>"; };
 		665E11902115380E007A025E /* MusicDataBase.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MusicDataBase.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		665E11932115380E007A025E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		665E11952115380E007A025E /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
@@ -320,6 +322,7 @@
 			isa = PBXGroup;
 			children = (
 				666A3E892118BCC200B560A2 /* RealmService.swift */,
+				662BAFD3211B8A8200185562 /* HashTable.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -593,6 +596,7 @@
 				666A3E7C2117BB2700B560A2 /* AlbumCommunity.swift in Sources */,
 				666A3E7D2117BB2700B560A2 /* Rating.swift in Sources */,
 				666A3E7E2117BB2700B560A2 /* Submitter.swift in Sources */,
+				662BAFD4211B8A8200185562 /* HashTable.swift in Sources */,
 				666A3E622117738C00B560A2 /* AlbumViewController.swift in Sources */,
 				666A3E7A2117BB2700B560A2 /* Contributors.swift in Sources */,
 				666A3E5B21174CCF00B560A2 /* User.swift in Sources */,
@@ -777,9 +781,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SVHZ5AR89V;
 				INFOPLIST_FILE = MusicDataBase/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.JustinStanger.MusicDataBase;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = MusicDataBase;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -793,9 +800,12 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SVHZ5AR89V;
 				INFOPLIST_FILE = MusicDataBase/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.JustinStanger.MusicDataBase;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = MusicDataBase;
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -810,7 +820,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SVHZ5AR89V;
 				INFOPLIST_FILE = MusicDataBaseTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.JustinStanger.MusicDataBaseTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -828,7 +842,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SVHZ5AR89V;
 				INFOPLIST_FILE = MusicDataBaseTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.JustinStanger.MusicDataBaseTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -845,7 +863,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SVHZ5AR89V;
 				INFOPLIST_FILE = MusicDataBaseUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.JustinStanger.MusicDataBaseUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -862,7 +884,11 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = SVHZ5AR89V;
 				INFOPLIST_FILE = MusicDataBaseUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.JustinStanger.MusicDataBaseUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;

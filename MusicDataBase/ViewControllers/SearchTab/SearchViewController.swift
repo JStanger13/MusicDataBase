@@ -27,8 +27,8 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         self.textField.delegate = self
         selectSearchMethod()
         print(segmentedController.selectedSegmentIndex)
-
         textField.clearButtonMode = .always
+        textField.placeholder = "Search Artists"
         
         self.textField.layer.cornerRadius = 15
         self.textField.layer.masksToBounds = true

@@ -28,14 +28,16 @@ class RealmService{
                 return realm.objects(type).filter("albumID == %@", key)
     }
 
-   
-//    func getFilteredObjetcs(type: Object.Type, key: String) -> Results<Object>? {
-//        //let predicate = NSPredicate(format: "mainKey == %@", key)
-//        return realm.objects(type).filter("mainKey == %@", key)
-//    }
-//    func getFilteredMain(type: Object.Type, key: String) -> Results<Object>? {
-//        return realm.objects(type).filter("mainQuestID == %@", key)
-//    }
+    
+    
+    func djb2Hash(_ string: String) -> Int {
+        let unicodeScalars = string.unicodeScalars.map { $0.value }
+        return unicodeScalars.reduce(5381) {
+            ($0 << 5) &+ $0 &+ Int($1)
+        }
+    }
+    
+    
     
     func deleteObjects(obj: [Object]){
         try! realm.write {

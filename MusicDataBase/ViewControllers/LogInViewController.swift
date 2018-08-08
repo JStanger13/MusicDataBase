@@ -11,15 +11,9 @@ import OAuthSwift
 
 class LogInViewController: UIViewController {
 
-//    let oauthSwift = OAuth2Swift(
-//        consumerKey: "foo",
-//        consumerSecret: "bar",
-//        //requestTokenUrl: "https://api.discogs.com/oauth/request_token",
-//        authorizeUrl: "https://www.discogs.com/oauth/authorize",
-//        //accessTokenUrl: "https://api.discogs.com/oauth/access_token"
-//        responseType:   "token"
-//    )
-   
+    @IBOutlet weak var _username: UITextField!
+    @IBOutlet weak var _password: UITextField!
+
     let oauthSwift = OAuth1Swift(
         consumerKey: "lJKbkQeHZEwdVlyopiQQ",
         consumerSecret: "DRlAsYCpMxEhwOCmFYKPkEQaNEEdSSCJ",
@@ -28,11 +22,11 @@ class LogInViewController: UIViewController {
         accessTokenUrl: "https://api.discogs.com/oauth/access_token"
     )
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        kickOffAuthFlow()
+    
+    @IBAction func logInButton(_ sender: Any) {
+            kickOffAuthFlow()
     }
- 
+    
     fileprivate func kickOffAuthFlow() {
         
         oauthSwift.authorizeURLHandler = SafariURLHandler(viewController: self, oauthSwift: oauthSwift)
@@ -42,6 +36,7 @@ class LogInViewController: UIViewController {
         oauthSwift.authorize(withCallbackURL: callbackURL, success: { (credential, response, parameters) in
             _ = self.oauthSwift.client.get("https://api.discogs.com/oauth/identity", success: { (response) in
                 guard let dataString = response.string else { return }
+                print("DATASTRING")
                 print(dataString)
             }, failure: { (error) in
                 print("error")
@@ -50,5 +45,6 @@ class LogInViewController: UIViewController {
             print(error.localizedDescription)
         }
     }
-
 }
+
+

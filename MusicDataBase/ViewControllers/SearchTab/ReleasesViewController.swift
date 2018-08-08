@@ -14,7 +14,8 @@ class ReleasesViewController: UIViewController, UITableViewDataSource, UITableVi
     var currentArtist: ArtistResults?
     @IBOutlet weak var tableView: UITableView!
     final var url: URL?
-
+    @IBOutlet weak var textField: UITextField!
+    
     @IBOutlet weak var artistNameLabel: UILabel!
     
     
@@ -22,7 +23,9 @@ class ReleasesViewController: UIViewController, UITableViewDataSource, UITableVi
     override func viewDidLoad() {
         super.viewDidLoad()
         artistNameLabel.text = currentArtist?.title
+        textField.placeholder = "Search Albums by \(currentArtist?.title)"
         performAction()
+        
 
     }
     
@@ -42,7 +45,6 @@ class ReleasesViewController: UIViewController, UITableViewDataSource, UITableVi
             }
         }
     }
-   
   
     func performAction() {
         url = URL(string: "http://api.discogs.com/artists/\(currentArtist!.id!)/releases?token=AXZYPRfjIYVkEiErSyebiLrREQwtLfKbAkfEpOiS")

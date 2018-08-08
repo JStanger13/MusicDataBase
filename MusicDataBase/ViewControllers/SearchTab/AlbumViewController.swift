@@ -11,6 +11,9 @@ import Toast_Swift
 
 class AlbumViewController: UIViewController{
     
+    
+ 
+    
     @IBOutlet weak var outsideAlbumView: UIView!
     @IBOutlet weak var insideView: UIView!
     @IBOutlet weak var saveSwitch: UISwitch!
@@ -38,6 +41,21 @@ class AlbumViewController: UIViewController{
         super.viewDidLoad()
         loadRealm()
         
+        var hashTable = HashTable<String, String>(capacity: 5)
+        hashTable["firstName"] = "Steve"
+        
+        
+        if let firstName = hashTable["firstName"] {
+            print(firstName)
+        }
+        
+        if let lastName = hashTable["lastName"] {
+            print(lastName)
+        } else {
+            print("lastName key not in hash table")
+        }
+        
+      
         albumInfoView.layer.cornerRadius = 10
         albumInfoView.layer.masksToBounds = true
         insideView.layer.cornerRadius = 5
@@ -60,16 +78,16 @@ class AlbumViewController: UIViewController{
             yearLabel.text = "\(String(describing: yearString!))"
         }
     }
-    func loadRealm(){
-        if (RealmService.shared.getFilteredObjetcs(type: AlbumObject.self, key: currentAlbum!.id!) != nil){
-            
-            albumIsSaved = true
-            saveSwitch.isOn = true
-        }else{
-            albumIsSaved = false
-            saveSwitch.isOn = false
-        }
-    }
+//    func loadRealm(){
+//        if (RealmService.shared.getFilteredObjetcs(type: AlbumObject.self, key: currentAlbum!.id!) != nil){
+//
+//            albumIsSaved = true
+//            saveSwitch.isOn = true
+//        }else{
+//            albumIsSaved = false
+//            saveSwitch.isOn = false
+//        }
+//    }
     func performAction() {
         url = URL(string: "https://api.discogs.com/releases/\(currentAlbum!.main_release!)?token=AXZYPRfjIYVkEiErSyebiLrREQwtLfKbAkfEpOiS")
         print(currentAlbum!.id!)
@@ -126,7 +144,7 @@ class AlbumViewController: UIViewController{
         print(savedAlbum.albumTitle)
         print(savedAlbum.artistTitle)
         print(savedAlbum.albumYear)
-        
+
         if saveSwitch.isOn{
             self.view.makeToast("This Album Has Been Saved")
             RealmService.shared.saveObjects(obj: [savedAlbum])
