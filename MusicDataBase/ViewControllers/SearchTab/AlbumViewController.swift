@@ -8,10 +8,10 @@
 
 import UIKit
 import Toast_Swift
+import RealmSwift
 
 class AlbumViewController: UIViewController{
-    
-    
+    var albumList : Results<Object>!
  
     
     @IBOutlet weak var outsideAlbumView: UIView!
@@ -26,6 +26,7 @@ class AlbumViewController: UIViewController{
 
     
     var currentAlbum: Releases?
+    var loadedAlbum: AlbumObject?
     var albumImage: [Images]?
     var albumInfoList:[String]?
     
@@ -78,7 +79,16 @@ class AlbumViewController: UIViewController{
             yearLabel.text = "\(String(describing: yearString!))"
         }
     }
-//    func loadRealm(){
+    func loadRealm(){
+        albumList = RealmService.shared.getFilteredObjetcs(type: AlbumObject.self, key: currentAlbum!.id!)
+        if albumList.count > 0 {
+            print("LOADED ALBUM IS ===")
+            saveSwitch.isOn = true
+        } else{
+            print("NILLYNILLY NILL!")
+            saveSwitch.isOn = false
+
+        }
 //        if (RealmService.shared.getFilteredObjetcs(type: AlbumObject.self, key: currentAlbum!.id!) != nil){
 //
 //            albumIsSaved = true
@@ -87,7 +97,7 @@ class AlbumViewController: UIViewController{
 //            albumIsSaved = false
 //            saveSwitch.isOn = false
 //        }
-//    }
+    }
     func performAction() {
         url = URL(string: "https://api.discogs.com/releases/\(currentAlbum!.main_release!)?token=AXZYPRfjIYVkEiErSyebiLrREQwtLfKbAkfEpOiS")
         print(currentAlbum!.id!)
