@@ -12,7 +12,8 @@ import RealmSwift
 
 class AlbumViewController: UIViewController{
     var albumList : Results<Object>!
- 
+    var realm = try! Realm()
+
     
     @IBOutlet weak var outsideAlbumView: UIView!
     @IBOutlet weak var insideView: UIView!
@@ -42,20 +43,7 @@ class AlbumViewController: UIViewController{
         super.viewDidLoad()
         loadRealm()
         
-        var hashTable = HashTable<String, String>(capacity: 5)
-        hashTable["firstName"] = "Steve"
-        
-        
-        if let firstName = hashTable["firstName"] {
-            print(firstName)
-        }
-        
-        if let lastName = hashTable["lastName"] {
-            print(lastName)
-        } else {
-            print("lastName key not in hash table")
-        }
-        
+    
       
         albumInfoView.layer.cornerRadius = 10
         albumInfoView.layer.masksToBounds = true
@@ -80,6 +68,7 @@ class AlbumViewController: UIViewController{
         }
     }
     func loadRealm(){
+        
         albumList = RealmService.shared.getFilteredObjetcs(type: AlbumObject.self, key: currentAlbum!.id!)
         if albumList.count > 0 {
             print("LOADED ALBUM IS ===")
@@ -89,14 +78,7 @@ class AlbumViewController: UIViewController{
             saveSwitch.isOn = false
 
         }
-//        if (RealmService.shared.getFilteredObjetcs(type: AlbumObject.self, key: currentAlbum!.id!) != nil){
-//
-//            albumIsSaved = true
-//            saveSwitch.isOn = true
-//        }else{
-//            albumIsSaved = false
-//            saveSwitch.isOn = false
-//        }
+
     }
     func performAction() {
         url = URL(string: "https://api.discogs.com/releases/\(currentAlbum!.main_release!)?token=AXZYPRfjIYVkEiErSyebiLrREQwtLfKbAkfEpOiS")
@@ -107,7 +89,6 @@ class AlbumViewController: UIViewController{
         let year = currentAlbum!.year!
         let yearString = String(year)
         albumInfoList?.append(yearString)
-
         
         downloadJson()
     }
@@ -157,17 +138,17 @@ class AlbumViewController: UIViewController{
 
         if saveSwitch.isOn{
             self.view.makeToast("This Album Has Been Saved")
-            RealmService.shared.saveObjects(obj: [savedAlbum])
+            RealmService.shared.saveObjects(obj: savedAlbum)
         }else{
+            //let predicate = NSPredicate(format: "albumID == %@", savedAlbum.albumID as! CVarArg!)
+            if let albumToDelete = realm.object(ofType: AlbumObject.self, forPrimaryKey: savedAlbum.albumID){
+            RealmService.shared.deleteObjects(obj: albumToDelete)
             self.view.makeToast("This Album Has Been Removed")
-            RealmService.shared.deleteObjects(obj: [savedAlbum])
-        }
-    
-        
-        RealmService.shared.saveObjects(obj: [savedAlbum])
 
+            }
+        }
     }
-   
+
     @IBAction func saveSwitchAction(_ sender: Any) {
         saveAlbum()
     }

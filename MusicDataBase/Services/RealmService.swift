@@ -14,7 +14,7 @@ class RealmService{
     static let shared = RealmService()
     var realm = try! Realm()
     
-    func saveObjects(obj: [Object]){
+    func saveObjects(obj: AlbumObject){
         try! realm.write {
             realm.add(obj, update: true)
         }
@@ -30,18 +30,17 @@ class RealmService{
 
     
     
-    func djb2Hash(_ string: String) -> Int {
-        let unicodeScalars = string.unicodeScalars.map { $0.value }
-        return unicodeScalars.reduce(5381) {
-            ($0 << 5) &+ $0 &+ Int($1)
-        }
-    }
-    
-    
-    
-    func deleteObjects(obj: [Object]){
+
+    func deleteObjects(obj: AlbumObject){
         try! realm.write {
-            realm.delete(obj)
+
+        let predicate = NSPredicate(format: "albumID == %@", argumentArray: [obj.albumID])
+        if let productToDelete = realm.objects(AlbumObject.self).filter(predicate).first{
+           
+            realm.delete(productToDelete)
+        
+                realm.delete(obj)
+            }
         }
     }
 }

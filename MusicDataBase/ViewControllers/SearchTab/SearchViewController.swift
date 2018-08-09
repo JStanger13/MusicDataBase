@@ -37,6 +37,9 @@ class SearchViewController: UIViewController, UITableViewDataSource, UITableView
         //textField.clearButtonMode = .whileEditing
 
     }
+    override func viewDidAppear(_ animated: Bool) {
+        tableView.reloadData()
+    }
     
     @IBAction func segmentedControllerChange(_ sender: Any) {
         print(self.segmentedController.selectedSegmentIndex)
